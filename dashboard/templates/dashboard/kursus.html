@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kursus - VektorKu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+    <script src="{% static 'dashboard/script.js' %}" defer></script>
+</head>
+<body>
+    <div class="dashboard-container two-columns">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                    <h2>VektorKu</h2>
+                </div>
+                <p class="subtitle">Belajar Gambar Vektor</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                    <li><a href="{% url 'misi' %}"><i class="fa-solid fa-bullseye"></i> Misi</a></li>
+                    <li><a href="{% url 'kursus' %}"><i class="fa-solid fa-book-open"></i> Kursus</a></li>
+                    <li><a href="{% url 'leaderboard' %}"><i class="fa-solid fa-trophy"></i> Leaderboard</a></li>
+                    <li><a href="{% url 'komunitas' %}"><i class="fa-solid fa-users"></i> Komunitas</a></li>
+                    <li><a href="{% url 'pengaturan' %}"><i class="fa-solid fa-gear"></i> Pengaturan</a></li>
+                    {% if request.user.is_staff %}
+                    <li class="admin-link"><a href="{% url 'admin_dashboard' %}"><i class="fa-solid fa-shield-halved"></i> Admin Panel</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="User Avatar" class="avatar">
+                    <div class="user-info">
+                        <h4>Alexender</h4>
+                        <span class="user-level">Lvl. 12</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- KONTEN UTAMA -->
+        <main class="main-content">
+            <header class="section-header" style="margin-bottom: 24px;">
+                <div>
+                    <h1 style="font-size: 2.2rem; margin-bottom: 8px;">Katalog Kursus Vektor</h1>
+                    <p>Kuasai dunia gambar vektor dengan materi lengkap dan terstruktur.</p>
+                </div>
+            </header>
+
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Cari kursus vektor, topik, atau tools...">
+                <button class="cta-button"><i class="fa-solid fa-search"></i> Cari</button>
+            </div>
+
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card glass-panel">
+                    <div class="course-image" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+                        <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1000&auto=format&fit=crop" alt="Vektor vs Raster">
+                        <div class="course-badge" style="color: #fbbf24;"><i class="fa-solid fa-star"></i> 4.9</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span><i class="fa-solid fa-layer-group"></i> 5 Modul</span>
+                            <span><i class="fa-solid fa-clock"></i> 4 Jam</span>
+                        </div>
+                        <h3>Gambar Vektor vs Raster</h3>
+                        <p>Pahami perbedaan mendasar antara grafis vektor dan raster, kapan menggunakan masing-masing, serta kelebihan dan kekurangannya.</p>
+                        <div class="course-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/150?img=33" alt="Mentor">
+                                <span>Rina A.</span>
+                            </div>
+                            <a href="{% url 'misi' %}" class="cta-button" style="padding: 6px 12px; font-size: 0.8rem; text-decoration:none;">Mulai</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 2 -->
+                <div class="course-card glass-panel">
+                    <div class="course-image" style="background: linear-gradient(135deg, #10b981, #047857);">
+                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1000&auto=format&fit=crop" alt="Tools Vektor">
+                        <div class="course-badge" style="color: #fbbf24;"><i class="fa-solid fa-star"></i> 4.8</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span><i class="fa-solid fa-layer-group"></i> 8 Modul</span>
+                            <span><i class="fa-solid fa-clock"></i> 6 Jam</span>
+                        </div>
+                        <h3>Tools Desain Vektor</h3>
+                        <p>Pelajari penggunaan Inkscape, Adobe Illustrator, dan CorelDRAW untuk membuat karya vektor profesional.</p>
+                        <div class="course-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/150?img=12" alt="Mentor">
+                                <span>Budi S.</span>
+                            </div>
+                            <a href="{% url 'misi' %}" class="cta-button" style="padding: 6px 12px; font-size: 0.8rem; text-decoration:none;">Mulai</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 3 -->
+                <div class="course-card glass-panel">
+                    <div class="course-image" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=1000&auto=format&fit=crop" alt="Bezier Curves">
+                        <div class="course-badge" style="color: #fbbf24;"><i class="fa-solid fa-star"></i> 4.7</div>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span><i class="fa-solid fa-layer-group"></i> 10 Modul</span>
+                            <span><i class="fa-solid fa-clock"></i> 8 Jam</span>
+                        </div>
+                        <h3>Bezier Curves & Typography Vektor</h3>
+                        <p>Kuasai teknik Bezier curves, paths, shapes, dan typography vektor untuk desain profesional.</p>
+                        <div class="course-footer">
+                            <div class="author-info">
+                                <img src="https://i.pravatar.cc/150?img=47" alt="Mentor">
+                                <span>Dewi K.</span>
+                            </div>
+                            <a href="{% url 'misi' %}" class="cta-button" style="padding: 6px 12px; font-size: 0.8rem; text-decoration:none;">Mulai</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+</body>
+</html>

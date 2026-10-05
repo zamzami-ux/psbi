@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komunitas - VektorKu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+    <script src="{% static 'dashboard/script.js' %}" defer></script>
+</head>
+<body>
+    <div class="dashboard-container two-columns">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                    <h2>VektorKu</h2>
+                </div>
+                <p class="subtitle">Belajar Gambar Vektor</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                    <li><a href="{% url 'misi' %}"><i class="fa-solid fa-bullseye"></i> Misi</a></li>
+                    <li><a href="{% url 'kursus' %}"><i class="fa-solid fa-book-open"></i> Kursus</a></li>
+                    <li><a href="{% url 'leaderboard' %}"><i class="fa-solid fa-trophy"></i> Leaderboard</a></li>
+                    <li><a href="{% url 'komunitas' %}"><i class="fa-solid fa-users"></i> Komunitas</a></li>
+                    <li><a href="{% url 'pengaturan' %}"><i class="fa-solid fa-gear"></i> Pengaturan</a></li>
+                    {% if request.user.is_staff %}
+                    <li class="admin-link"><a href="{% url 'admin_dashboard' %}"><i class="fa-solid fa-shield-halved"></i> Admin Panel</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="User Avatar" class="avatar">
+                    <div class="user-info">
+                        <h4>Alexender</h4>
+                        <span class="user-level">Lvl. 12</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- KONTEN UTAMA -->
+        <main class="main-content">
+            <div class="forum-header">
+                <div>
+                    <h1 style="font-size: 2.2rem; margin-bottom: 8px;">Komunitas</h1>
+                    <p>Diskusikan teknik vektor, tanyakan solusi, dan berkolaborasi dengan pelajar lain.</p>
+                </div>
+                <button class="cta-button"><i class="fa-solid fa-plus"></i> Buat Diskusi Baru</button>
+            </div>
+
+            <div class="mission-tabs">
+                <div class="tab active">Terpopuler</div>
+                <div class="tab">Terbaru</div>
+                <div class="tab">Diskusi Saya</div>
+            </div>
+
+            <!-- Post 1 -->
+            <div class="forum-post glass-panel">
+                <div class="post-votes">
+                    <button class="vote-btn"><i class="fa-solid fa-chevron-up"></i></button>
+                    <span class="vote-count">128</span>
+                    <button class="vote-btn"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <img src="https://i.pravatar.cc/150?img=33" alt="User" style="width: 20px; height: 20px; border-radius: 50%;">
+                        <span>Sarah W.</span>
+                        <span>•</span>
+                        <span>2 jam yang lalu</span>
+                        <span class="post-tag">Gambar Vektor</span>
+                    </div>
+                    <h3 class="post-title">Bagaimana cara membuat Bezier curve yang halus di Inkscape?</h3>
+                    <p class="post-text">Saya sering kesulitan mengontrol handle point saat membuat kurva bezier di Inkscape. Apakah ada tips atau shortcut supaya hasilnya lebih smooth? Terima kasih!</p>
+                    <div class="post-actions">
+                        <button class="action-btn"><i class="fa-solid fa-comment"></i> 24 Komentar</button>
+                        <button class="action-btn"><i class="fa-solid fa-share"></i> Bagikan</button>
+                        <button class="action-btn"><i class="fa-regular fa-bookmark"></i> Simpan</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post 2 -->
+            <div class="forum-post glass-panel">
+                <div class="post-votes">
+                    <button class="vote-btn"><i class="fa-solid fa-chevron-up"></i></button>
+                    <span class="vote-count">85</span>
+                    <button class="vote-btn"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <img src="https://i.pravatar.cc/150?img=12" alt="User" style="width: 20px; height: 20px; border-radius: 50%;">
+                        <span>Mike T.</span>
+                        <span>•</span>
+                        <span>5 jam yang lalu</span>
+                        <span class="post-tag" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-green);">Showcase</span>
+                    </div>
+                    <h3 class="post-title">Hasil desain logo vektor untuk projek akhir</h3>
+                    <p class="post-text">Hai semua, ini hasil akhir logo vektor dari misi minggu lalu. Saya menggunakan teknik tracing di Adobe Illustrator dengan path yang clean. Bagaimana menurut kalian? Kritik dan saran sangat ditunggu!</p>
+                    <div class="post-actions">
+                        <button class="action-btn"><i class="fa-solid fa-comment"></i> 42 Komentar</button>
+                        <button class="action-btn"><i class="fa-solid fa-share"></i> Bagikan</button>
+                        <button class="action-btn"><i class="fa-regular fa-bookmark"></i> Simpan</button>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+</body>
+</html>

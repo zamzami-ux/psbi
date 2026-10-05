@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misi - VektorKu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+    <script src="{% static 'dashboard/script.js' %}" defer></script>
+</head>
+<body>
+    <div class="dashboard-container two-columns">
+        
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fa-solid fa-layer-group"></i></div>
+                    <h2>VektorKu</h2>
+                </div>
+                <p class="subtitle">Belajar Gambar Vektor</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="{% url 'index' %}"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                    <li><a href="{% url 'misi' %}"><i class="fa-solid fa-bullseye"></i> Misi</a></li>
+                    <li><a href="{% url 'kursus' %}"><i class="fa-solid fa-book-open"></i> Kursus</a></li>
+                    <li><a href="{% url 'leaderboard' %}"><i class="fa-solid fa-trophy"></i> Leaderboard</a></li>
+                    <li><a href="{% url 'komunitas' %}"><i class="fa-solid fa-users"></i> Komunitas</a></li>
+                    <li><a href="{% url 'pengaturan' %}"><i class="fa-solid fa-gear"></i> Pengaturan</a></li>
+                    {% if request.user.is_staff %}
+                    <li class="admin-link"><a href="{% url 'admin_dashboard' %}"><i class="fa-solid fa-shield-halved"></i> Admin Panel</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://i.pravatar.cc/150?img=11" alt="User Avatar" class="avatar">
+                    <div class="user-info">
+                        <h4>Alexender</h4>
+                        <span class="user-level">Lvl. 12</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- KONTEN UTAMA -->
+        <main class="main-content">
+            <header class="section-header" style="margin-bottom: 32px;">
+                <div>
+                    <h1 style="font-size: 2.2rem; margin-bottom: 8px;">Misi Kamu</h1>
+                    <p>Selesaikan misi untuk mendapatkan XP dan Badge eksklusif.</p>
+                </div>
+            </header>
+
+            <div class="mission-tabs">
+                <div class="tab active">Misi Aktif (3)</div>
+                <div class="tab">Selesai (24)</div>
+                <div class="tab">Terkunci (8)</div>
+            </div>
+
+            <div class="missions-grid">
+                {% for item in mission_list %}
+                <div class="mission-item-card glass-panel {% if item.status == 'completed' %}completed{% endif %}">
+                    <i class="fa-solid fa-wand-magic-sparkles mission-icon"></i>
+                    <h3 style="margin-bottom: 8px;">{{ item.mission.title }}</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">{{ item.mission.description }}</p>
+                    
+                    {% if item.status == 'not_started' %}
+                    <a href="{% url 'misi_materi' item.mission.id %}" class="cta-button" style="text-decoration: none; width: 100%; justify-content: center; padding: 10px; background: rgba(255,255,255,0.05); color: var(--text-primary);">Mulai Misi</a>
+                    
+                    {% elif item.status == 'reading' %}
+                    <a href="{% url 'misi_materi' item.mission.id %}" class="cta-button" style="text-decoration: none; width: 100%; justify-content: center; padding: 10px;">Lanjutkan Materi</a>
+                    
+                    {% elif item.status == 'quiz' %}
+                    <a href="{% url 'misi_kuis' item.mission.id %}" class="cta-button" style="text-decoration: none; width: 100%; justify-content: center; padding: 10px; background: rgba(241, 196, 15, 0.2); color: #f1c40f;">Lanjutkan Kuis</a>
+                    
+                    {% elif item.status == 'evaluation' %}
+                    <a href="{% url 'misi_evaluasi' item.mission.id %}" class="cta-button" style="text-decoration: none; width: 100%; justify-content: center; padding: 10px; background: rgba(255, 99, 132, 0.2); color: #ff6b6b;">Lanjutkan Evaluasi</a>
+                    
+                    {% elif item.status == 'completed' %}
+                    <div class="mission-reward" style="color: var(--accent-green); text-align: center; margin-top: 10px;">
+                        <i class="fa-solid fa-check"></i> Selesai
+                    </div>
+                    {% endif %}
+                    
+                    {% if item.status != 'completed' %}
+                    <div class="mission-reward">
+                        <i class="fa-solid fa-star"></i> +{{ item.mission.xp_reward }} XP
+                    </div>
+                    {% endif %}
+                </div>
+                {% empty %}
+                <p style="grid-column: 1 / -1; text-align: center; color: var(--text-secondary);">Belum ada misi tersedia saat ini.</p>
+                {% endfor %}
+            </div>
+            
+        </main>
+    </div>
+</body>
+</html>

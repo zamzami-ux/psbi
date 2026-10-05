@@ -1,0 +1,73 @@
+{% extends "dashboard/admin/base_admin.html" %}
+
+{% block title %}{% if mission %}Edit Misi{% else %}Tambah Misi{% endif %}{% endblock %}
+
+{% block breadcrumb %}
+<span class="sep">/</span>
+<a href="{% url 'admin_missions' %}">Kelola Misi</a>
+<span class="sep">/</span>
+<span class="current">{% if mission %}Edit{% else %}Tambah{% endif %} Misi</span>
+{% endblock %}
+
+{% block content %}
+<div class="admin-page-header">
+    <div>
+        <h1>{% if mission %}Edit Misi{% else %}Tambah Misi Baru{% endif %}</h1>
+        <p>{% if mission %}Ubah detail misi pembelajaran.{% else %}Isi form untuk membuat misi baru.{% endif %}</p>
+    </div>
+    <a href="{% url 'admin_missions' %}" class="btn btn-ghost">
+        <i class="fa-solid fa-arrow-left"></i> Kembali
+    </a>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="admin-form-card">
+        <h2><i class="fa-solid fa-bullseye" style="margin-right: 8px; color: var(--accent-blue);"></i> Detail Misi</h2>
+        <div class="admin-form-grid">
+            <div class="form-group">
+                <label>Judul Misi <span class="required">*</span></label>
+                <input type="text" name="title" class="form-control" value="{{ mission.title|default:'' }}" placeholder="Contoh: Pengenalan Vektor vs Raster" required>
+            </div>
+            <div class="form-group">
+                <label>Urutan</label>
+                <input type="number" name="order" class="form-control" value="{{ mission.order|default:0 }}" min="0">
+            </div>
+            <div class="form-group">
+                <label>XP Reward</label>
+                <input type="number" name="xp_reward" class="form-control" value="{{ mission.xp_reward|default:50 }}" min="0">
+            </div>
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <div style="padding: 12px; color: var(--text-muted); font-size: 0.85rem;">
+                    <i class="fa-solid fa-circle-info"></i> XP akan diberikan saat pengguna menyelesaikan kuis misi ini.
+                </div>
+            </div>
+            <div class="form-group full-width">
+                <label>Deskripsi <span class="required">*</span></label>
+                <textarea name="description" class="form-control" rows="3" placeholder="Deskripsi singkat tentang misi ini..." required>{{ mission.description|default:'' }}</textarea>
+            </div>
+            <div class="form-group full-width">
+                <label>Konten Materi <span class="required">*</span></label>
+                <textarea name="content" class="form-control" rows="10" placeholder="Tulis konten materi pembelajaran di sini (mendukung HTML)..." required>{{ mission.content|default:'' }}</textarea>
+                <div style="margin-top: 8px; color: var(--text-muted); font-size: 0.8rem;">
+                    <i class="fa-solid fa-circle-info"></i> Mendukung format HTML untuk konten materi.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> {% if mission %}Simpan Perubahan{% else %}Buat Misi{% endif %}
+        </button>
+        <a href="{% url 'admin_missions' %}" class="btn btn-ghost">Batal</a>
+        {% if mission %}
+        <a href="{% url 'admin_questions' mission.id %}" class="btn btn-success" style="margin-left: auto;">
+            <i class="fa-solid fa-list-check"></i> Kelola Soal ({{ question_count }})
+        </a>
+        {% endif %}
+    </div>
+</form>
+{% endblock %}
