@@ -29,11 +29,6 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
-CSRF_TRUSTED_ORIGINS = os.environ.get(
-    'CSRF_TRUSTED_ORIGINS',
-    'https://*.vercel.app,https://*.now.sh,http://localhost:8000,http://127.0.0.1:8000'
-).split(',')
-
 
 # Application definition
 
@@ -90,22 +85,10 @@ DATABASES = {
     }
 }
 
-# If a DATABASE_URL is provided (e.g., on Heroku/Render/Vercel Postgres/Supabase), use it.
+# If a DATABASE_URL is provided (e.g., on Heroku/Render), use it.
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
     DATABASES['default'] = dj_database_url.parse(DATABASE_URL, conn_max_age=600)
-elif os.environ.get('VERCEL'):
-    import shutil
-    tmp_db = Path('/tmp') / 'db.sqlite3'
-    if not tmp_db.exists() and (BASE_DIR / 'db.sqlite3').exists():
-        try:
-            shutil.copyfile(BASE_DIR / 'db.sqlite3', tmp_db)
-        except Exception:
-            pass
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': tmp_db,
-    }
 
 
 # Password validation
@@ -142,7 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Use WhiteNoise for static file serving in production
