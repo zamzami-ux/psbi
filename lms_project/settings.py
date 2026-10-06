@@ -29,6 +29,10 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://psbi-pi.vercel.app',
+    'https://*.vercel.app',
+]
 
 # Application definition
 
